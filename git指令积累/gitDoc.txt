@@ -1,0 +1,11 @@
+//git命令行删除远程分支
+
+使用如下两条命令
+
+1.git branch -r -d origin/branch-name
+2.git push origin :branch-name
+
+//初始化本地仓库
+
+git init 
+
