@@ -1,3 +1,6 @@
+/*
+ * 随机显示16进制web颜色
+ */
 function changeColor() {
 	var rgb = [];
 	for(var i = 0; i < 3; i++) {
