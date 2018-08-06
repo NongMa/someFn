@@ -10,3 +10,23 @@ function changeColor() {
 	}
 	return this.color = '#' + rgb.join('');
 }
+
+/*
+ *阻止事件冒泡的兼容性写法
+ */
+
+function stopPropagation(e) {
+
+	e = window.event || e;
+
+	if(document.all) { //只有ie识别
+
+		e.cancelBubble = true;
+
+	} else {
+
+		e.stopPropagation();
+
+	}
+
+}
