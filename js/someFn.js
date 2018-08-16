@@ -30,3 +30,12 @@ function stopPropagation(e) {
 	}
 
 }
+
+/*
+ * 获取类型
+ */
+
+function getType(o) {
+	var _t
+	return((_t = typeof(o)) === 'object' ? o === null && 'null' || Object.prototype.toString.call(o).slice(8, -1) : _t).toLowerCase()
+};
