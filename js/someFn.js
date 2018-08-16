@@ -39,3 +39,18 @@ function getType(o) {
 	var _t
 	return((_t = typeof(o)) === 'object' ? o === null && 'null' || Object.prototype.toString.call(o).slice(8, -1) : _t).toLowerCase()
 };
+
+/*
+ * 克隆对象
+ */
+
+function cloneObject(myObj) {
+	if(typeof(myObj) !== 'object' || myObj === null) {
+		return myObj
+	}
+	var myNewObj = {}
+	for(var i in myObj) {
+		myNewObj[i] = this.cloneObject(myObj[i]);
+	}
+	return myNewObj
+};
