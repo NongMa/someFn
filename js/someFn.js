@@ -65,7 +65,52 @@
              */
             n = n.toString()
             return n[1] ? n : '0' + n
-        }
+        },
+        /*-------------------- Cookie操作 --------------------*/
+        setCookie : function (sName, sValue, oExpires, sPath, sDomain, bSecure) {
+            //-----设置Cookie-----
+            var sCookie = sName + '=' + encodeURIComponent(sValue);
+            if (oExpires) {
+                var date = new Date();
+                date.setTime(date.getTime() + oExpires * 60 * 60 * 1000);
+                sCookie += '; expires=' + date.toUTCString();
+            }
+            if (sPath) {
+                sCookie += '; path=' + sPath;
+            }
+            if (sDomain) {
+                sCookie += '; domain=' + sDomain;
+            }
+            if (bSecure) {
+                sCookie += '; secure';
+            }
+            document.cookie = sCookie;
+        },
+        getCookie : function (sName) {
+            //-----获得Cookie值-----
+            var sRE = '(?:; )?' + sName + '=([^;]*)';
+            var oRE = new RegExp(sRE);
+            if (oRE.test(document.cookie)) {
+                return decodeURIComponent(RegExp['$1']);
+            } else {
+                return null;
+            }
+        },
+        deleteCookie : function (sName, sPath, sDomain) {
+            //-----删除Cookie值-----
+            this.setCookie(sName, '', new Date(0), sPath, sDomain);
+        },
+        clearCookie : function () { //清除所有Cookie
+            var cookies = document.cookie.split(";");
+            var len = cookies.length;
+            for (var i = 0; i < len; i++) {
+                var cookie = cookies[i];
+                var eqPos = cookie.indexOf("=");
+                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                name = name.replace(/^\s*|\s*$/, "");
+                document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/"
+            }
+        },
     }
 })();
 
