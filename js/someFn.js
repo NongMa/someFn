@@ -122,7 +122,7 @@
 				return arr;
 			},
 			debounce: function(func, delay) {
-				//-----截流函数-----
+				//-----截流函数1-----
 				var timer = null;
 				return function(...args) {
 					if(timer) {
@@ -132,5 +132,13 @@
 						func.apply(this, args)
 					}, delay)
 				}
-			}
+			},
+			throttle: function(method,context){
+				//-----截流函数2-----
+	            clearTimeout(method.tId);
+	            method.tId=setTimeout(function(){
+	                method.call(context);
+	            },500);
+	        }
+			
 		})();
