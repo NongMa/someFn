@@ -1,4 +1,4 @@
-    !(function() {
+!(function() {
 		if(!window.$l) {
 			window.$l = {};
 		};
@@ -133,12 +133,12 @@
 					}, delay)
 				}
 			},
-			throttle: function(method,context){
+			throttle: function(method, context) {
 				//-----截流函数2-----
-	            clearTimeout(method.tId);
-	            method.tId=setTimeout(function(){
-	                method.call(context);
-	            },500);
-	        }
-			
+				clearTimeout(method.tId);
+				method.tId = setTimeout(function() {
+					method.call(context);
+				}, 500);
+			}
+
 		})();
