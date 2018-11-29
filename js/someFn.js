@@ -111,7 +111,7 @@
                 document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/"
             }
         },
-        shulft : function (arr) {
+        shuffle : function (arr) {
         	//-----洗牌排序-----
 	    	for(var i=0;i<arr.length;i++){
 	    		var j= Math.floor(Math.random()*(i+1));
