@@ -139,6 +139,34 @@
 				method.tId = setTimeout(function() {
 					method.call(context);
 				}, 500);
+			},
+			getJson: function(url) {
+				//-----使用promise封装的ajax
+				const promise = new Promise(function(resolve, reject) {
+					const handler = function() {
+						if(this.readyState !== 4) {
+							return
+						} 						
+						if(this.status == 200){
+							resolve(this.response);
+						}
+						else {
+							reject(new Error(this.statusText));
+						}						
+					};
+					let xhr = null;
+					if(window.XMLHttpRequest) {
+						xhr = new XMLHttpRequest();
+					} else {
+						xhr = new ActiveXObject('Microsoft.XMLHTTP');
+					}
+					xhr.open('GET', url);
+					xhr.onreadystatechange = handler;
+					xhr.responseType = 'json';
+					xhr.setRequestHeader("Accept", "application/json")
+					xhr.send();
+				});
+				return promise;
 			}
 
 		})();
