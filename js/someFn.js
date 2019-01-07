@@ -167,6 +167,35 @@
 					xhr.send();
 				});
 				return promise;
-			}
-
-		})();
+			},
+			addClass: function(el, className) {
+			  //添加类名
+			  if (this.hasClass(el, className)) {
+			    return
+			  }
+			  var newClass = el.className.split(' ');
+			  newClass.push(className);
+			  el.className = newClass.join(' ');
+			},
+			 hasClass: function(el, className) {
+			  //判断类名是否存在
+			  var reg = new RegExp('(^|\\s)' + className + '(\\s|$)');
+			  return reg.test(el.className);
+			},
+			removeClass: function(el, className){
+			  //移除类名
+			  if (this.hasClass(el, className)) {
+			    var nowClass = el.className.split(' ');
+			    var newClass = [];
+			    for(var i=0;i<nowClass.length;i++){
+			    	if(nowClass[i]!==className){
+			    		newClass.push(nowClass[i]);
+			    	}
+			    }
+			    el.className = newClass.join(' ');
+			  }else{
+			  	return
+			  }	
+           }
+		}
+	})();
