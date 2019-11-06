@@ -46,6 +46,25 @@
 			}
 			return myNewObj
 		},
+		// 将例如20190504转化为2019-05-04等格式的时间处理工具函数
+		formatTimeBySep(time, tip, show) {
+			tip = tip || '-';
+			show = show || false;
+			time = String(time);
+			if(time.length !== 8 ) return time;
+			var year = time.slice(0,4);
+			var month = time.slice(4,6);
+			var date = time.slice(6);
+			if(show) {
+				if(month.charAt(0) === '0') {
+					month = month.charAt(1);
+				}
+				if(date.charAt(0) === '0') {
+					date = date.charAt(1);
+				}
+			}
+			return year+tip+month+tip+date;
+		},
 		formatTime: function(date) {
 			/*
 			 *格式化时间显示
@@ -121,8 +140,8 @@
 			}
 			return arr;
 		},
-		debounce: function(func, delay) {
-			//-----截流函数1-----
+		//-----防抖-----
+		debounce: function(func, delay) {		
 			var timer = null;
 			return function(...args) {
 				if(timer) {
@@ -133,17 +152,17 @@
 				}, delay)
 			}
 		},
-		throttle: function(method, context) {
-			//-----截流函数2-----
+		//-----节流-----
+		throttle: function(method, context) {			
 			clearTimeout(method.tId);
 			method.tId = setTimeout(function() {
 				method.call(context);
 			}, 500);
 		},
+		//-----使用promise封装的ajax
 		getJson: function(url) {
-			//-----使用promise封装的ajax
-			const promise = new Promise(function(resolve, reject) {
-				const handler = function() {
+			var promise = new Promise(function(resolve, reject) {
+				var handler = function() {
 					if(this.readyState !== 4) {
 						return
 					}
@@ -153,7 +172,7 @@
 						reject(new Error(this.statusText));
 					}
 				};
-				let xhr = null;
+				var xhr = null;
 				if(window.XMLHttpRequest) {
 					xhr = new XMLHttpRequest();
 				} else {
