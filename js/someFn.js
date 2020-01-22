@@ -227,6 +227,85 @@
 				// 没有 val ，就获取 dom 中的 name
 				return el.getAttribute(name)
 			}
+		},
+		
+		/**
+		 * @param {String} time
+		 * @param {String} tip = '-'
+		 * @param {Boolean} show = 'false'
+		 */
+		formateTime: function(time, tip, show) {
+			tip = tip || '-';
+			show = show || false;
+			time = String(time);
+			if(time.length !== 8 ) return time;
+			var year = time.slice(0,4);
+			var month = time.slice(4,6);
+			var date = time.slice(6);
+			if(show) {
+				if(month.charAt(0) === '0') {
+					month = month.charAt(1);
+				}
+				if(date.charAt(0) === '0') {
+					date = date.charAt(1);
+				}
+			}
+			return year+tip+month+tip+date;
+		},
+		
+		/**
+		 * 用字符分割连续的数字
+		 * @param {Number} value
+		 * @param {Number} s = 3
+		 * @param {String} step = ' '
+		 * @param {Boolean} sort = false
+		 * @return {String} 
+		 */
+		
+		addNumberStep: function(value, sort, s, step) {
+			sort = sort || false;
+			s = s || 3;
+			step = step || ','
+			if(value && !isNaN(value) && /^-*[0-9]+$/.test(value)) {
+				var regExpValue = new RegExp('(\\d{'+s+'})(?=\\d)', 'g');
+				if(sort) {
+				} else {
+					return String(value).split('').reverse().join('').replace(regExpValue, '$1'+step).split('').reverse().join('')
+					return String(value).replace(regExpValue, '$1'+step)
+				}
+				
+			} else {
+				throw('参数异常')
+			}
+		},
+		
+		/** 
+		 * 用","格式化金额
+		 * @param {Number | String} n 
+		 * @param {Number | null} s
+		 * @return {String}
+		 */
+		formatMoney: function(n, s) {
+			if(isNaN(n)) {
+				return n
+			} else {
+				var newValue;
+				if(s && s > 0 && Number.isInteger(s)) {
+					newValue = (+n).toFixed(s);
+					var newValueArr = String(newValue).split('.');
+				    newValueArr[0]  = addNumberStep(newValueArr[0], true);
+					newValue = newValueArr.join('.');
+				} else {
+					if(String(n).indexOf('.') > -1) {
+					   var newValueArr = String(n).split('.');
+					   newValueArr[0]  = addNumberStep(newValueArr[0], true);
+					   newValue = newValueArr.join('.');
+					} else {
+						newValue = addNumberStep(n, true);
+					}
+				}
+				return newValue;
+			}
 		}
 	}
 })();
