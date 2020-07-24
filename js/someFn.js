@@ -307,6 +307,61 @@
 				}
 				return newValue;
 			}
+		},
+		/**
+		 * 获取数组交集
+		 * @param {Array} array1
+		 * @param {Array} array1
+		 * @return {Array}
+		 */
+		getArrayInter: function(array1, array2) {
+			var result = [];
+			[].push.apply(array1, array2);
+			array1.forEach((v, i) => {
+				if (!result.includes(v)) {
+					result.push(v);
+				}
+			});
+			return result;
+		}
+		
+		/**
+		 * 获取数组字符串公共前缀
+		 * @param {Array} arr
+		 * @return {String}
+		 */
+		
+		getArrayCommonPreStr function(arr) {
+			  var result = '';
+			  if (arr && arr.constructor === Array) {	  
+				  var arrs = [];
+				  var minLengthArray = 0;
+				  arr.forEach((v, i) => {
+					  var newArr = v.split('');
+					  if (newArr.length <= minLengthArray) {
+						  minLengthArray = i;
+					  }
+					  arrs.push(newArr);
+				  });
+				  
+				  arrs[minLengthArray].forEach( (v, i) => {
+					 var count = 0;
+					 arrs.forEach((v1, i1) => {
+						 if (i1 !== minLengthArray ) {
+							 v1.forEach((v2, i2) => {
+								if (i2 === i && v2 === v) {
+									count++; 
+								} 
+							 });
+						 }
+					 });
+					 if (count === arrs.length - 1) {
+					 	result += v;
+					 }
+				  });
+			  }
+			  
+			 return result;
 		}
 	}
 })();
